@@ -1,0 +1,158 @@
+:root {
+    --app-blue: #1f6feb;
+    --app-bg: #f3f5f9;
+    --app-text: #1f2937;
+    --app-muted: #6b7280;
+    --app-footer: #212529;
+    --shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.08);
+    --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+body.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--app-bg);
+    color: var(--app-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-main {
+    flex: 1;
+}
+
+.app-navbar {
+    background: var(--app-blue);
+}
+
+.app-navbar .navbar-brand,
+.app-navbar .nav-link,
+.app-navbar .small {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.app-navbar .nav-link:hover,
+.app-navbar .nav-link.active {
+    color: #fff;
+}
+
+.app-navbar .nav-link.active {
+    font-weight: 600;
+}
+
+.app-footer {
+    margin-top: auto;
+    background: var(--app-footer);
+}
+
+.messages .alert {
+    box-shadow: var(--shadow-sm);
+}
+
+.card {
+    border: 0;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-header {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+}
+
+.app-section-title {
+    font-size: 1.15rem;
+}
+
+.stat-card {
+    border-left: 4px solid transparent;
+}
+
+.stat-card.activas {
+    border-left-color: #2f80ed;
+}
+
+.stat-card.transito {
+    border-left-color: #2d9cdb;
+}
+
+.stat-card.retraso {
+    border-left-color: #eb5757;
+}
+
+.stat-card.entregadas {
+    border-left-color: #27ae60;
+}
+
+.stat-label {
+    color: #4b5563;
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stat-icon {
+    font-size: 2rem;
+    opacity: 0.55;
+}
+
+.table thead th {
+    background: #fff;
+    color: #6b7280;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table tbody td {
+    vertical-align: middle;
+}
+
+.badge-estado {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.badge-PE {
+    background: #fde2e4;
+    color: #b42318;
+}
+
+.badge-TR {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge-DE {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.badge-EN {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.badge-DV {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(31, 111, 235, 0.15);
+}

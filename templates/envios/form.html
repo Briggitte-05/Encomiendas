@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo|default:"Formulario" }} — Encomiendas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ titulo|default:"Registro de Encomienda" }}</h2>
+        <a href="{% url 'encomienda_lista' %}" class="btn btn-outline-secondary">Volver</a>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form method="POST" novalidate>
+                {% csrf_token %}
+
+                {# Errores generales que no pertenecen a un campo específico #}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">{{ form.codigo.label }} *</label>
+                        {{ form.codigo }}
+                        {% if form.codigo.errors %}
+                            <div class="text-danger small">{{ form.codigo.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">{{ form.descripcion.label }} *</label>
+                        {{ form.descripcion }}
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">{{ form.remitente.label }} *</label>
+                        {{ form.remitente }}
+                        {% if form.remitente.errors %}
+                            <div class="text-danger small">{{ form.remitente.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">{{ form.destinatario.label }} *</label>
+                        {{ form.destinatario }}
+                        {% if form.destinatario.errors %}
+                            <div class="text-danger small">{{ form.destinatario.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">{{ form.ruta.label }} *</label>
+                        {{ form.ruta }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">{{ form.peso_kg.label }} *</label>
+                        {{ form.peso_kg }}
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">{{ form.costo_envio.label }} *</label>
+                        {{ form.costo_envio }}
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">{{ form.fecha_entrega_est.label }}</label>
+                        {{ form.fecha_entrega_est }}
+                        {% if form.fecha_entrega_est.errors %}
+                            <div class="text-danger small">{{ form.fecha_entrega_est.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <label class="form-label">{{ form.observaciones.label }}</label>
+                        {{ form.observaciones }}
+                    </div>
+                </div>
+
+                <div class="mt-4 border-top pt-3 text-end">
+                    <a href="{% url 'encomienda_lista' %}" class="btn btn-light">Cancelar</a>
+                    <button type="submit" class="btn btn-primary px-4">Guardar Encomienda</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

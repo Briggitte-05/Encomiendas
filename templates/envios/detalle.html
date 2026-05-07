@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ encomienda.codigo }} - Detalle{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="h3">{{ encomienda.codigo }}</h2>
+    <div>
+        <a href="{% url 'encomienda_lista' %}" class="btn btn-outline-secondary me-2">Volver</a>
+        <a href="{% url 'encomienda_editar' encomienda.pk %}" class="btn btn-primary">Editar</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-white d-flex justify-content-between">
+                <h5 class="mb-0">Informacion de la encomienda</h5>
+                <span class="badge bg-primary">{{ encomienda.get_estado_display }}</span>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <p class="text-muted mb-1">Remitente</p>
+                        <h6>{{ encomienda.remitente.nombre_completo }}</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted mb-1">Destinatario</p>
+                        <h6>{{ encomienda.destinatario.nombre_completo }}</h6>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <p class="text-muted mb-1">Ruta</p>
+                        <h6>{{ encomienda.ruta }}</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted mb-1">Costo</p>
+                        <h6>S/ {{ encomienda.costo_envio|floatformat:2 }}</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="text-muted mb-1">Fecha registro</p>
+                        <h6>{{ encomienda.fecha_registro|date:'d/m/Y H:i' }}</h6>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="text-muted mb-1">Entrega estimada</p>
+                        <h6>{{ encomienda.fecha_entrega_est|date:'d/m/Y'|default:'-' }}</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted mb-1">Entrega real</p>
+                        <h6>{{ encomienda.fecha_entrega_real|date:'d/m/Y'|default:'-' }}</h6>
+                    </div>
+                </div>
+
+                {% if encomienda.observaciones %}
+                <div class="mt-3">
+                    <p class="text-muted mb-1">Observaciones</p>
+                    <div>{{ encomienda.observaciones }}</div>
+                </div>
+                {% endif %}
+
+                {% if encomienda.tiene_retraso %}
+                <div class="alert alert-danger mt-3">
+                    Esta encomienda tiene retraso y supero la fecha estimada.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card shadow">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Historial de estados</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Anterior</th>
+                            <th>Nuevo</th>
+                            <th>Empleado</th>
+                            <th>Observacion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for h in historial %}
+                        <tr>
+                            <td>{{ h.fecha_cambio|date:'d/m/Y H:i' }}</td>
+                            <td>{{ h.get_estado_anterior_display }}</td>
+                            <td>{{ h.get_estado_nuevo_display }}</td>
+                            <td>{{ h.empleado }}</td>
+                            <td>{{ h.observacion|default:'-' }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">Sin cambios registrados</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
